@@ -1,0 +1,14 @@
+<%=button_to "logout", logout_path%>
+<%=button_to "home", user_landing_path(@user.id), method: :get%>
+
+<h1> customize profile </h1>
+<%= form_for @user, method: :patch do |f| %>
+    name: <%= f.text_field :name %>
+    <p>
+    age: <%= f.number_field :age %>
+    <p>
+    bio: <%= f.text_area :bio%>
+    <p>
+    <%= f.submit "update user" %>
+
+<%end%>

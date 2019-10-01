@@ -1,0 +1,28 @@
+<%=button_to "logout", logout_path%>
+<%=button_to "home", user_landing_path(@user.id), method: :get%>
+
+<h1> Profile Page </h1>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>username:</strong>
+  <%= @user.user_name %>
+</p>
+
+<p>
+  <strong>name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>age:</strong>
+  <%= @user.age %>
+</p>
+
+<p>
+  <strong>bio:</strong>
+  <%= @user.bio %>
+</p>
+
+interests: 
+<%=@user.preferences.map {|p| p.name}.to_sentence%>

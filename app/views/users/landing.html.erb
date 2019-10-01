@@ -1,0 +1,16 @@
+<%=button_to "logout", logout_path%>
+
+<h1> welcome, <%=@user.name%>. what would you like to do?</h1>
+
+
+
+<%=button_to "view profile", user_path(@user.id), method: :get%>
+<%=button_to "manage interests", interests_path, method: :get%>
+<%=button_to "edit profile", edit_user_path, method: :get%>
+view friends
+search for friends
+<%=button_to "delete account (cannot be undone!)", user_path(@user.id), method: :delete%>
+
+
+
+

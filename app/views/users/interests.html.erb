@@ -1,0 +1,26 @@
+<%=button_to "logout", logout_path%>
+<%=button_to "home", user_landing_path(@user.id), method: :get%>
+
+
+current: 
+<%=@user.preferences.map {|p| p.name}.to_sentence%>
+<p>
+<font color="red">delete interests:</font>
+
+
+<%= form_for :user_preference, method: :delete do |f|%>
+    <% f.hidden_field :user, :value => @user.id %>
+    <%=collection_select(:user_preference, :id, @user_preferences, :id, :p_name)%>
+    <%= f.submit "delete" %>
+<%end%>
+
+
+<p>
+<strong>add interests:</strong>
+<p>
+<%= form_for :user_preference do |f|%>
+    <%=collection_select(:preference, :id, @preferences, :id, :name)%>
+    <%= f.submit "add interest" %>
+<%end%>
+<p>
+

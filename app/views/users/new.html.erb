@@ -1,0 +1,19 @@
+<h1>sign up for friendspace!</h1>
+<h2>just fill out this form</h2>
+
+<%= form_for :user do |f|%>
+    user name:<p> <%=f.text_field :user_name%>
+    <p>
+    password: <p> <%=f.password_field :password%>
+    <p>
+    name: <p> <%=f.text_field :name%>
+    <p>
+    age: <p><%=f.number_field :age%>
+    <p>
+    quick bio: <p> <%=f.text_area :bio%>
+    <p>
+    <%= f.submit "sign up" %>
+<%end%>
+<%if flash[:message]%>
+  <font color="red"><%=flash[:message].to_sentence%></font>
+<%end%>
