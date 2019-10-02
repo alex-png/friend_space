@@ -1,0 +1,10 @@
+<%=button_to "logout", logout_path%>
+<%=button_to "home", user_landing_path(@user), method: :get%>
+
+<h1> Interests Board </h1>
+
+<%@preferences.each do |p|%>
+    <p>
+    <%=link_to p.name, interest_path(p.id)%>
+    </p>
+<%end%>

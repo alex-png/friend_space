@@ -32,4 +32,8 @@ Rails.application.routes.draw do
   #logout
   post "logout", to: "sessions#logout", as: "logout"
 
+  ##########################
+  get "/interests", to: "preferences#index"
+  post "/interests/:id", to: "preferences#add_post"
+  get "/interests/:id", to: "preferences#show", as: "interest"
 end

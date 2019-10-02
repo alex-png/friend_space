@@ -29,36 +29,36 @@ class UsersController < ApplicationController
 
     def edit
       
-        @user = User.all.find(user.id) 
+        @user = User.all.find(user) 
       
     end
 
     def update
-      @user = User.all.find(user.id)
+      @user = User.all.find(user)
       @user.name = params[:user][:name]
       @user.bio = params[:user][:bio]
       @user.age = params[:user][:age]
       @user.save
-      redirect_to user_path(@user.id)
+      redirect_to user_path(user)
     
     end
 
     def destroy
-      @user = User.find(user.id)
+      @user = User.find(user)
       @user.user_preferences.destroy_all
       @user.destroy
     end
 
 
     def landing
-      @user = User.find(user.id)
+      @user = User.find(user)
      
     end
 
     def interests
-        @user = User.all.find(user.id)
+        @user = User.all.find(user)
         @preferences = Preference.all
-        @user_preferences = UserPreference.all.select {|up| up.user_id == user.id}
+        @user_preferences = UserPreference.all.select {|up| up.user_id == user}
         
         @user_preference = UserPreference.new
         

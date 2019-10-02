@@ -10,7 +10,11 @@
 view friends
 search for friends
 <%=button_to "delete account (cannot be undone!)", user_path(@user.id), method: :delete%>
-
-
-
+<br>
+My Message Boards:
+<% @user.preferences.each do |p| %>
+    <p>
+<%= link_to p.name, interest_path(p.id) %>
+</p>
+<%end%>
 

@@ -1,0 +1,16 @@
+<%=button_to "logout", logout_path%>
+<%=button_to "home", user_landing_path(@user), method: :get%>
+
+<h1><%=@preference.name.downcase%></h1><h2> message board </h2>
+<br>
+<% @posts.each do |p|%>
+    <p>
+    <%=link_to "#{p.user.user_name}", user_path(p.user.id)%> : <%=p.comment%>
+    </p>
+    <% end %>
+
+    <%= form_for :post do |f| %>
+      <br>comment:<br> <%= f.text_area :comment %><br/>
+      <%= f.submit "post" %></br>
+    <% end %>
+  
