@@ -1,11 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<li class="nav-item">
+<img src=<%=@session_user.image%> style="width:30px;height:30px;">
+</li>
+  <a class="navbar-brand" href="/">friendspace</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<h1> Profile Page </h1>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/<%=@session_user.id%>" >profile</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="/interests" >all message boards</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="/users/<%=@user.id%>/edit" >customize profile</a>
+  </li>
+  <li class="nav-item">
+  <a class="nav-link" href="/users/<%=@user.id%>/interests" >manage interests</a>
+</li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="search by interests" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  <li class="nav-item">
+  <%=link_to "logout", logout_path, method: :post%>
+  </li>
+</nav>
+
+
+
+<h1> <%= @user.user_name %> </h1>
+<%= form_for :follow, :url => "/follow", method: :post do |f| %>
+  <%= f.hidden_field :follower_id, :value => @session_user.id %>
+  <%= f.hidden_field :followee_id, :value => @user.id %>
+  <%= f.button "add friend" %>
+<% end %>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>username:</strong>
-  <%= @user.user_name %>
-</p>
+<img src="<%=@user.image%>" style="width:200px;height:300;">
+
 
 <p>
   <strong>name:</strong>
@@ -16,13 +57,66 @@
   <strong>age:</strong>
   <%= @user.age %>
 </p>
+<p>
+
+<% if @user.id == 1 %>
+  <strong>IQ:</strong> 230
+  <p>
+  <strong>Relationship status:</strong> Single 
+  </p>
+  <%end%>
+
+</p>
 
 <p>
   <strong>bio:</strong>
   <%= @user.bio %>
 </p>
+<strong><%=@user.name.downcase%>'s friends</strong>
+<br>
+<%@user.followees.each do |f|%>
+  &#160;
+  <img src=<%=f.image%> style="width:80px;height:90px;">
+  <%=link_to f.name, user_path(f.id)%>
+    <%end%>
 
-interests: 
-<%@user.preferences.select do |p| %>
-    <%=link_to "#{p.name}", interest_path(p.id)%>
-<%end%>
+    <%@user.followers.each do |f|%>
+      &#160;
+      <img src=<%=f.image%> style="width:80px;height:90px;">
+      <%=link_to f.name, user_path(f.id)%>
+      <%end%>
+
+      <br>
+<strong>interests:</strong>
+<div class="card-group">
+  <% @user.preferences.each do |p| %>
+    <div class="card" style="width: 18rem;">
+    <img src="<%=p.image%>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%=p.name%></h5>
+      <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
+      <p>
+      <br>
+      <a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
+      </p>
+    </div>
+    </div>
+  <%end%>
+  </div>
+<br>
+
+
+<h5>  leave a comment:  </h5>
+<br>
+
+<% @comments.each do |c|%>
+    <p>
+<img src=<%=c.commenter.image%> style="width:30px;height:30px;"> </li><%=link_to "#{c.commenter.user_name}", user_path(c.commenter.id)%> : <%=c.comment%>
+    </p>
+    <% end %>
+
+    <%= form_for :profile_comment, method: :post do |f| %>
+      <br>comment:<br> <%= f.text_area :comment %><br/>
+      <%= f.submit "post" %></br>
+    <% end %>
+

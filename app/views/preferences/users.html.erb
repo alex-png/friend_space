@@ -1,0 +1,15 @@
+<h1> users who like... 
+<p><%=@preference.name%></p></h1>
+<br>
+<div class="card-group">
+<%@users.each do |u|%>
+  <div class="card">
+    <img class="card-img-top" src="<%=u.image%>"" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title"><%=u.name%></h5>
+      <a href=<%=user_path(u.id)%> class="btn btn-primary">View Profile!</a>
+      </div>
+  </div>
+  <br>
+  <%end%>
+</div>

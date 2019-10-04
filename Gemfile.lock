@@ -77,9 +77,6 @@ GEM
       xpath (~> 3.2)
     childprocess (2.0.0)
       rake (< 13.0)
-    commontator (6.1.0)
-      rails (>= 5.0)
-      will_paginate
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     erubi (1.9.0)
@@ -234,7 +231,6 @@ GEM
     websocket-driver (0.7.1-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    will_paginate (3.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.1.10)
@@ -251,7 +247,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
-  commontator
   jbuilder (~> 2.7)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <li class="nav-item">
-<img src=<%=@user.image%> style="width:30px;height:30px;">
+<img src=<%=@session_user.image%> style="width:30px;height:30px;">
 </li>
   <a class="navbar-brand" href="/">friendspace</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
         <a class="nav-link" href="/">home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users/<%=@user.id%>" >profile</a>
+        <a class="nav-link" href="/users/<%=@session_user.id%>" >profile</a>
       </li>
       <li class="nav-item">
       <a class="nav-link" href="/interests" >all message boards</a>
@@ -34,27 +34,17 @@
   <%=link_to "logout", logout_path, method: :post%>
   </li>
 </nav>
-
-current: 
-<%=@user.preferences.map {|p| p.name}.to_sentence%>
-<p>
-<strong>add interests:</strong>
-<p>
-<%= form_for :user_preference do |f|%>
-    <%=collection_select(:preference, :id, @preferences, :id, :name)%>
-    <%= f.submit "add interest" %>
-    <%end%>
-    <p>
-    
-    <p>
-    <font color="red">delete interests:</font>
-    
-    
-    <%= form_for :user_preference, method: :delete do |f|%>
-        <% f.hidden_field :user, :value => @user.id %>
-        <%=collection_select(:user_preference, :id, @user_preferences, :id, :p_name)%>
-        <%= f.submit "delete" %>
-    <%end%>
-    
-    
-    
+<h1><%=@user.name.downcase%>'s friends</h1>
+<br>
+<%@user.followees.each do |f|%>
+    &#160;
+    <img src=<%=f.image%> style="width:130px;height:150px;">
+    <%=link_to f.name, user_path(f.id)%>
+      <%end%>
+  
+      <%@user.followers.each do |f|%>
+        &#160;
+        <img src=<%=f.image%> style="width:150px;height:150px;">
+        <%=link_to f.name, user_path(f.id)%>
+        <%end%>
+  

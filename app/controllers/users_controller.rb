@@ -1,12 +1,11 @@
 class UsersController < ApplicationController  
-    before_action :valid?, except:[:new, :create, :show]
+    before_action :valid?, except:[:new, :create, :show, :friends]
     
     def new
        @user = User.new
     end
   
     def create
-      
       @user = User.new(user_params)
       if @user.save
         redirect_to login_path
@@ -19,7 +18,10 @@ class UsersController < ApplicationController
     def show
       user = session[:user]
       if user
+        @session_user = User.all.find(user)
+        @comments = ProfileComment.all.select{|c| c.profile_id == params[:id].to_i}
         @user = User.all.find(params[:id]) 
+        @follow =  Follow.new
       else
         redirect_to "/"
       end
@@ -33,12 +35,16 @@ class UsersController < ApplicationController
       
     end
 
+    def add_post
+      ProfileComment.create(commenter_id: user, profile_id:params[:id], comment:params[:profile_comment][:comment])
+      @comments = ProfileComment.all.select{|c| c.profile_id == params[:id].to_i}
+      redirect_to user_path(params[:id])
+
+    end
+
     def update
       @user = User.all.find(user)
-      @user.name = params[:user][:name]
-      @user.bio = params[:user][:bio]
-      @user.age = params[:user][:age]
-      @user.save
+      @user.update(name:params[:user][:name], age:params[:user][:age], bio:params[:user][:bio], image:params[:user][:image])
       redirect_to user_path(user)
     
     end
@@ -65,11 +71,20 @@ class UsersController < ApplicationController
               
     end
 
+    def add_friend
+      follow = Follow.create(follower_id:params[:follow][:follower_id], followee_id:params[:follow][:followee_id])
+      redirect_to request.referrer, notice: "You're being redirected"
+    end
+
+    def friends
+      @session_user = User.all.find(user)
+      @user = User.all.find(params[:id]) 
+    end
 
     private
 
     def user_params
-      params.require(:user).permit(:user_name, :password, :name, :age, :bio)
+      params.require(:user).permit(:user_name, :password, :name, :age, :bio, :image)
     end
   end
   

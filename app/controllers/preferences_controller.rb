@@ -1,5 +1,5 @@
 class PreferencesController < ApplicationController
-    before_action :valid?, except:[:index]
+    before_action :valid?
 
     def index
         @user = user
@@ -10,6 +10,12 @@ class PreferencesController < ApplicationController
         @user = user
         @preference = Preference.all.find(params[:id])
         @posts = Post.all.select{ |p| p.preference_id == @preference.id} 
+    end
+
+    def users
+        @user = user
+        @preference = Preference.all.find(params[:id])
+        @users = @preference.users
     end
 
     def add_post

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_135126) do
+ActiveRecord::Schema.define(version: 2019_10_03_232908) do
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["follower_id", "followee_id"], name: "index_follows_on_follower_id_and_followee_id", unique: true
+  end
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id"
@@ -22,6 +30,15 @@ ActiveRecord::Schema.define(version: 2019_10_02_135126) do
 
   create_table "preferences", force: :cascade do |t|
     t.string "name"
+    t.string "image"
+  end
+
+  create_table "profile_comments", force: :cascade do |t|
+    t.integer "commenter_id"
+    t.integer "profile_id"
+    t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_preferences", force: :cascade do |t|
@@ -39,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_135126) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.string "image"
   end
 
   add_foreign_key "user_preferences", "preferences"

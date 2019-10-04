@@ -1,5 +1,6 @@
 class UpController < ApplicationController
-    
+    before_action :valid?
+
     def add
         user = User.all.find(session[:user])       
         user_preference = UserPreference.create(user_id: user.id, preference_id: params[:preference][:id])
