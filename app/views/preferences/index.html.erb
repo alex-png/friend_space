@@ -35,56 +35,23 @@
   </li>
 </nav>
 
-<h1> Interests Board </h1>
-<div class="card-group">
-<%@preferences[0..3].each do |p|%>
-  <div class="card">
-    <img class="card-img-top" src="<%=p.image%>"" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title"><%=p.name%></h5>
-      <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
-      <p>
-      <br>
-    <a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
-    </p>
-      </div>
-  </div>
-  <br>
-  <%end%>
-</div>
-<br>
-<div class="card-group">
-<%@preferences[4..7].each do |p|%>
-  <div class="card">
-    <img class="card-img-top" src="<%=p.image%>"" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title"><%=p.name%></h5>
-      <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
-      <p>
-      <br>
-    <a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
-    </p>
-      </div>
-  </div>
-  <br>
-  <%end%>
+<center><h1> Interests Board </h1></center>
+<div class="container">
+ <div class="row">
+   <% @preferences.each do |p| %>
+     <div class="col-md-4">
+       <img src=<%=p.image%> class="card-img-top"/>
+       <div class="card">
+         <div class="card-body">
+           <h5 class="card-title"><%= p.name %></h5>
+           <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
+           <p class="card-text"><br><a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
+           </p>
+           </div>
+       </div>
+     </div>
+   <% end %>
+ </div>
 </div>
 
-<br>
-<div class="card-group">
-<%@preferences[8..13].each do |p|%>
-  <div class="card">
-    <img class="card-img-top" src="<%=p.image%>"" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title"><%=p.name%></h5>
-      <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
-        <p>
-        <br>
-      <a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
-      </p>
-      </div>
-  </div>
-  <br>
-  <%end%>
-</div>
 

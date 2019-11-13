@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_232908) do
+ActiveRecord::Schema.define(version: 2019_10_04_165413) do
 
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_232908) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.string "image"
+    t.string "song"
   end
 
   add_foreign_key "user_preferences", "preferences"

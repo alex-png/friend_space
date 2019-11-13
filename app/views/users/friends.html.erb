@@ -34,17 +34,43 @@
   <%=link_to "logout", logout_path, method: :post%>
   </li>
 </nav>
-<h1><%=@user.name.downcase%>'s friends</h1>
-<br>
-<%@user.followees.each do |f|%>
-    &#160;
-    <img src=<%=f.image%> style="width:130px;height:150px;">
-    <%=link_to f.name, user_path(f.id)%>
-      <%end%>
-  
-      <%@user.followers.each do |f|%>
-        &#160;
-        <img src=<%=f.image%> style="width:150px;height:150px;">
-        <%=link_to f.name, user_path(f.id)%>
-        <%end%>
-  
+<center><h1><%=@user.name.downcase%>'s friends</h1></center>
+
+<div class="container">
+ <div class="row">
+ <%@user.followees.each do |f|%>
+    <br>
+      <div class="col-md-4">
+      <img src=<%=f.image%> class="card-img-top"/>
+           <div class="card">
+             <div class="card-body">
+               <h5 class="card-title"><%= f.name %></h5>
+               <a href=<%=user_path(f.id)%> class="btn btn-primary">view profile!</a>
+               </div>
+           </div>
+         </div>
+       <% end %>
+       <br>
+     </div>
+    </div>  
+    <br>
+    <div class="container">
+    <div class="row">
+    <%@user.followers.each do |f|%>
+       <br>
+         <div class="col-md-4">
+         <img src=<%=f.image%> class="card-img-top"/>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><%= f.name %></h5>
+                  <a href=<%=user_path(f.id)%> class="btn btn-primary">view profile!</a>
+                  </div>
+              </div>
+            </div>
+          <% end %>
+          <br>
+        </div>
+       </div>
+       
+       <br>
+     

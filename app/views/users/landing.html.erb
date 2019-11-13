@@ -38,25 +38,29 @@
 
 
 
-<center> <%=link_to "view friends", friends_path(params[:id])%> | search for friends | <%= link_to "view profile", user_path(@user.id)%> </center>
-
+<center> <%=link_to "view friends", friends_path(params[:id])%> | <%=link_to "search for friends", users_path %> | <%= link_to "view profile", user_path(@user.id)%> </center>
+<br>
+<center>
 <br>
 <h3>my interests:</h3>
-<font color="grey">(add more interests from <%=link_to "manage interests", interests_path(@user.id) %> to see more!)</font>
+<font color="grey">(add more interests from <%=link_to "manage interests", interests_path(@user.id) %> to see more!)</font></center>
 <br>
 <br>
-<div class="card-group">
-<% @user.preferences.each do |p| %>
-    <div class="card" style="width: 18rem;">
-  <img src="<%=p.image%>" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title"><%=p.name%></h5>
-    <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
-    <p>
-    <br>
-  <a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
-  </p>
-  </div>
+<div class="container">
+ <div class="row">
+   <% @user.preferences.each do |p| %>
+     <div class="col-md-4">
+       <img src=<%=p.image%> class="card-img-top"/>
+       <div class="card">
+         <div class="card-body">
+           <h5 class="card-title"><%= p.name %></h5>
+           <a href=<%=interest_path(p.id)%> class="btn btn-primary">start messaging!</a>
+           <p class="card-text"><br><a href=<%=users_by_interest_path(p.id)%> class="btn btn-primary">see users for this interest</a>
+           </p>
+           </div>
+       </div>
+     </div>
+   <% end %>
+ </div>
 </div>
-<%end%>
-</div>
+

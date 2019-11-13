@@ -22,11 +22,18 @@ class UsersController < ApplicationController
         @comments = ProfileComment.all.select{|c| c.profile_id == params[:id].to_i}
         @user = User.all.find(params[:id]) 
         @follow =  Follow.new
+      
       else
         redirect_to "/"
       end
     
     end
+    
+    def index
+      @user = User.all.find(user)
+      @users = User.all
+    end
+
 
 
     def edit
@@ -44,7 +51,7 @@ class UsersController < ApplicationController
 
     def update
       @user = User.all.find(user)
-      @user.update(name:params[:user][:name], age:params[:user][:age], bio:params[:user][:bio], image:params[:user][:image])
+      @user.update(name:params[:user][:name], age:params[:user][:age], bio:params[:user][:bio], image:params[:user][:image], song:params[:user][:song])
       redirect_to user_path(user)
     
     end
@@ -53,6 +60,8 @@ class UsersController < ApplicationController
       @user = User.find(user)
       @user.user_preferences.destroy_all
       @user.destroy
+      session[:user] = nil
+      redirect_to "/"
     end
 
 
@@ -73,7 +82,7 @@ class UsersController < ApplicationController
 
     def add_friend
       follow = Follow.create(follower_id:params[:follow][:follower_id], followee_id:params[:follow][:followee_id])
-      redirect_to request.referrer, notice: "You're being redirected"
+      redirect_to request.referrer, notice: "you're now friends!"
     end
 
     def friends
@@ -84,7 +93,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-      params.require(:user).permit(:user_name, :password, :name, :age, :bio, :image)
+      params.require(:user).permit(:user_name, :password, :name, :age, :bio, :image, :song)
     end
   end
   

@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   #welcome page
   get "/", to: "home#show"
   #######################
+
+
+
   #create new user
   get "/signup", to: "users#new", as: "new_user"
   post "/signup", to: "users#create"
   
+  #search for users
+  get"/users", to: "users#index", as: "users"
+
   #profile page
   get "/users/:id", to: "users#show", as: "user"
 
